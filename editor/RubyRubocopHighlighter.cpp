@@ -123,9 +123,8 @@ void RubocopHighlighter::initRubocopProcess()
     QObject::connect(m_rubocop, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
                      [this](int status) {
         if (status) {
-            Core::MessageManager::instance()->write(
-                        QString::fromUtf8(m_rubocop->readAllStandardError().trimmed()),
-                        Core::MessageManager::ModeSwitch);
+            Core::MessageManager::instance()->writeFlashing(
+                        QString::fromUtf8(m_rubocop->readAllStandardError().trimmed()));
             m_rubocopFound = false;
         }
     });
